@@ -8,10 +8,14 @@ export const Toast = ({isShown,message,type,onClose}) => {
   useEffect(()=>{
     const timeoutId=setTimeout(()=>{
       onClose()
-    },1000)
-  })
+    },3000)
+    return ()=>{
+      clearTimeout(timeoutId)
+    }
+  },[onClose])
   return (
-    <div className={`absolute top-20 right-6 transition-all duration-100 ${!isShown ? "opacity-100":"opacity-0"}`}>
+    <div className={`absolute top-20 right-6 transition-all duration-100 ${isShown ? "opacity-100":"opacity-0"}`}>
+      
       <div className={`min-w-52 bg-white border shadow-2xl rounded-md after:h-full ${
         type==="delete" ? "after:bg-red-500":"after:bg-green-500"
       }`}>
